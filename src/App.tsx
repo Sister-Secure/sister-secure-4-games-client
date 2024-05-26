@@ -10,8 +10,10 @@ import ListaTemas from './components/formularioTema/ListaTemas';
 import FormularioTema from './components/formularioTema/FormularioTema';
 import DeletarTema from './components/formularioTema/DeletarTema';
 import FormularioPostagem from './components/formularioPostagem/FormularioPostagem';
-import ListaPostagens from './components/formularioPostagem/ListaPostagem';
 import DeletarPostagem from './components/formularioPostagem/DeletarPostagem';
+import Forum from './pages/forum/Forum';
+import Navbar from './components/Navbar/Navbar';
+import ListaPostagens from './components/formularioPostagem/ListaPostagens';
 
 function App() {
   
@@ -19,7 +21,9 @@ function App() {
     <>
       <AuthProvider>
         <BrowserRouter>
+        <Navbar/>
           <div className='min-h-[80vh]'>
+
             <Routes>
               <Route path="/" element={<Login />} />
               <Route path="/cadastro" element={<Cadastro />} />
@@ -31,6 +35,7 @@ function App() {
               <Route path="/postagens" element={<ListaPostagens />} />
               <Route path="/cadastroPostagem" element={<FormularioPostagem />} />
               <Route path="/editarPostagem/:id" element={<FormularioPostagem />} />
+              <Route path="/forum" element={<Forum/>} />
               <Route path="/deletarPostagem/:id" element={<DeletarPostagem />} />
               <Route path="/perfil" element={<Perfil />} />
             </Routes>

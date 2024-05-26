@@ -2,12 +2,12 @@ import React from 'react';
 
 const Navbar = () => {
   return (
-    <div className="navbar bg-orange-500 flex justify-center items-center">
+    <div className="navbar bg-blue-700 flex justify-center items-center">
       <div className="flex-1">
-        <a className="btn btn-ghost text-white text-xl">Sister Secure 4 Games</a>
+        <a className="btn btn-ghost text-white text-xl">SS4G</a>
       </div>
       <div className="text-white text-center flex-1 space-x-4 ">
-        <h1 className="text-xl font-bold my-4 btn btn-ghost"><a href="/inicio">Início</a></h1>
+        <h1 className="text-xl font-bold my-4 btn btn-ghost"><a href="/home">Início</a></h1>
         <h1 className="text-xl font-bold my-4 btn btn-ghost"><a href="/forum">Fórum</a></h1>
         <h1 className="text-xl font-bold my-4 btn btn-ghost"><a href="/contato">Contato</a></h1>
       </div>
@@ -31,7 +31,7 @@ const Navbar = () => {
               <a href="/minhaspostagens">Minhas Postagens</a>
             </li>
             <li>
-              <a href="/login">Sair</a>
+              <a href="/">Sair</a>
             </li>
           </ul>
         </div>

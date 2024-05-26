@@ -1,5 +1,4 @@
-import { createContext, ReactNode, useState } from "react"
-
+import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react"
 import UsuarioLogin from "../models/UsuarioLogin"
 import { login } from "../services/Service"
 
@@ -8,6 +7,7 @@ interface AuthContextProps {
     handleLogout(): void
     handleLogin(usuario: UsuarioLogin): Promise<void>
     isLoading: boolean
+    setUsuario: Dispatch<SetStateAction<UsuarioLogin>>
 }
 
 interface AuthProviderProps {
@@ -18,23 +18,23 @@ export const AuthContext = createContext({} as AuthContextProps)
 
 export function AuthProvider({ children }: AuthProviderProps) {
 
-    const [usuario, setUsuario] = useState<UsuarioLogin>({
-        id: 0,
-        nomeUsuario: "",
-        sobrenomeUsuario: "",
-        cadastroUnico: 0,
-        dataNascimento: "",
-        telefone: 0,
-        cidade: "",
-        bairro: "",
-        cep: "",
-        rua: "",
-        numeroCasa: "",
-        emailUsuario: "",
-        fotoUsuario: "",
-        senhaUsuario: "",
-        token: ""
-    })
+    const [usuario, setUsuario] = useState<UsuarioLogin>(() => {
+        const storagedUser = sessionStorage.getItem('@App:usuario'); // Alterado para sessionStorage
+        if (storagedUser) {
+            return JSON.parse(storagedUser);
+        }
+        return {
+            id: 0,
+            nome: "",
+            usuario: "",
+            senha: "",
+            foto: "",
+            token: ""
+        };
+    });
+    useEffect(() => {
+        sessionStorage.setItem('@App:usuario', JSON.stringify(usuario)); // Alterado para sessionStorage
+    }, [usuario]);
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -53,27 +53,18 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     function handleLogout() {
+
         setUsuario({
             id: 0,
-            nomeUsuario: "",
-            sobrenomeUsuario: "",
-            cadastroUnico: 0,
-            dataNascimento: "",
-            telefone: 0,
-            cidade: "",
-            bairro: "",
-            cep: "",
-            rua: "",
-            numeroCasa: "",
-            emailUsuario: "",
-            fotoUsuario: "",
-            senhaUsuario: "",
+            nome: "",
+            usuario: "",
+            senha: "",
+            foto: "",
             token: ""
-        })
+        });
     }
-
     return (
-        <AuthContext.Provider value={{ usuario, handleLogin, handleLogout, isLoading }}>
+        <AuthContext.Provider value={{ usuario, handleLogin, handleLogout, isLoading, setUsuario }}>
             {children}
         </AuthContext.Provider>
     )
