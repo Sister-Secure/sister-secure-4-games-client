@@ -20,7 +20,7 @@ const PerfilUsuario: React.FC = () => {
     // Simulando uma requisição para obter os dados do usuário
     const fetchUsuario = async () => {
       try {
-        const response = await axios.get<Usuario>('url_para_obter_dados_do_usuario');
+        const response = await axios.get<Usuario>('https://sistersecure4games.onrender.com/');
         setUsuario(response.data);
       } catch (error) {
         console.error('Erro ao obter dados do usuário:', error);

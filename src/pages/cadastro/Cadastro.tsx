@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import  cadastro from '../../assets/imagens/cadastro.jpg';
 
 interface Usuario {
   nome: string;
@@ -29,10 +30,9 @@ const CadastroUsuario: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      // Aqui você faria a requisição para cadastrar o usuário utilizando o axios
       await axios.post('/cadastrar', usuario);
       alert('Usuário cadastrado com sucesso!');
-      // Limpar o formulário após o cadastro
+
       setUsuario({
         nome: '',
         usuario: '',
@@ -48,39 +48,41 @@ const CadastroUsuario: React.FC = () => {
   };
 
   return (
-    <div className="flex">
-      <form
-        onSubmit={handleSubmit}
-        className="mr-4 flex flex-col max-w-xs"
-      >
-        <div className="mb-2">
-          <label htmlFor="nome">Nome:</label>
-          <input type="text" id="nome" name="nome" value={usuario.nome} onChange={handleChange} required className="border rounded p-1" />
-        </div>
-        <div className="mb-2">
-          <label htmlFor="usuario">Usuário:</label>
-          <input type="email" id="usuario" name="usuario" value={usuario.usuario} onChange={handleChange} required className="border rounded p-1" />
-        </div>
-        <div className="mb-2">
-          <label htmlFor="senha">Senha:</label>
-          <input type="password" id="senha" name="senha" value={usuario.senha} onChange={handleChange} required className="border rounded p-1" />
-        </div>
-        <div className="mb-2">
-          <label htmlFor="foto">Foto:</label>
-          <input type="text" id="foto" name="foto" value={usuario.foto} onChange={handleChange} className="border rounded p-1" />
-        </div>
-        <button type="submit" disabled={loading} className="bg-blue-500 text-white rounded px-4 py-2 cursor-pointer">
-          {loading ? 'Carregando...' : 'Cadastrar'}
-        </button>
-      </form>
-      <div>
-        {/* Card de pré-visualização da foto */}
-        {usuario.foto && (
-          <div className="border rounded p-4">
-            <h2 className="mb-2">Pré-visualização da Foto</h2>
-            <img src={usuario.foto} alt="Foto do usuário" className="max-w-xs max-h-40" />
+    <div className="flex flex-col min-h-screen">
+      <div className="relative flex-grow">
+        <img src={cadastro} alt="Imagem de Cadastro" className="absolute inset-0 w-full h-full object-cover opacity-70" />
+        <div className="relative flex justify-end items-center h-full bg-opacity-50 p-10">
+          <div className="bg-blue-700 bg-opacity-60 p-10 rounded-lg shadow-lg w-full max-w-xl h-auto">
+            <h2 className="text-white text-3xl mb-6 text-center">Cadastro</h2>
+            <form onSubmit={handleSubmit} className="w-full">
+              <div className="mb-4">
+                <label htmlFor="nome" className="block text-white text-lg">Nome:</label>
+                <input type="text" id="nome" name="nome" value={usuario.nome} onChange={handleChange} required className="border-2 border-white rounded p-2 w-full bg-transparent text-white" />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="usuario" className="block text-white text-lg">Usuário:</label>
+                <input type="email" id="usuario" name="usuario" value={usuario.usuario} onChange={handleChange} required className="border-2 border-white rounded p-2 w-full bg-transparent text-white" />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="senha" className="block text-white text-lg">Senha:</label>
+                <input type="password" id="senha" name="senha" value={usuario.senha} onChange={handleChange} required className="border-2 border-white rounded p-2 w-full bg-transparent text-white" />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="foto" className="block text-white text-lg">Foto:</label>
+                <input type="text" id="foto" name="foto" value={usuario.foto} onChange={handleChange} className="border-2 border-white rounded p-2 w-full bg-transparent text-white" />
+              </div>
+              <button type="submit" disabled={loading} className="rounded bg-orange-500 bg-opacity-90 hover:bg-orange-600 text-white w-full py-2 transition-colors duration-300 ease-in-out text-base">
+                {loading ? 'Carregando...' : 'Cadastrar'}
+              </button>
+            </form>
+            {usuario.foto && (
+              <div className="border-2 border-white rounded p-2 mt-4">
+                <h2 className="text-white mb-1">Pré-visualização da Foto</h2>
+                <img src={usuario.foto} alt="Foto do usuário" className="max-w-xs max-h-32" />
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
